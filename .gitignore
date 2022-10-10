@@ -1,3 +1,7 @@
+Gemfile.lock
+db/tumble.db
+
+
 *.gem
 *.rbc
 /.config
