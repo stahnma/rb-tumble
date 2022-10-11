@@ -12,6 +12,7 @@ db_config = YAML::load(File.open('config/database.yml'))
 ActiveRecord::Base.establish_connection(db_config)
 
 require_relative 'quote'
+require_relative 'link'
 
 
 def main_page
@@ -38,12 +39,17 @@ def main_page
 #  end
 
 
-  (0..5).each do |n|
-    puts n
-#    puts Quote.page(n).to_sql
-    Quote.page(n).each do |q|
-      ap q
-    end
+#  (0..5).each do |n|
+#    puts n
+##    puts Quote.page(n).to_sql
+#    Quote.page(n).each do |q|
+#      ap q
+#    end
+#  end
+
+  Link.all.each do |l|
+    ap l
+    ap l.render()
   end
 end
 
