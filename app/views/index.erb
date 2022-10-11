@@ -41,6 +41,12 @@
               <span class="author"><%= ti.author %></span>
             </div>
         <% end %>
+        <% if ti.has_attribute?('url') %>
+           <div class="item">
+             <span class="link"><%= ti.payload() %></span>
+             <span class="author"><%= ti.user %> </span>
+          </div>
+        <% end %>
       <% end %>
 
     </div>

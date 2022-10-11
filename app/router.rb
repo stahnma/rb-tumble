@@ -4,10 +4,11 @@
 
 require 'date'
 require "sinatra"
-require "sinatra/reloader" 
+require "sinatra/reloader"
 require 'yaml'
 require 'active_record'
 require_relative 'quote'
+require_relative 'link'
 require 'awesome_print'
 
 
@@ -20,7 +21,14 @@ set :public_folder, __dir__ + '/public'
 
 def main_page(weeks = 0)
   puts "Weeks is " + weeks.to_s
-  @tumble_items = Quote.page(weeks)
+  @tumble_items = []
+  Quote.page(weeks).each do| q|
+    @tumble_items.push q
+  end
+  Link.page(weeks).each do |l|
+    @tumble_items.push l
+  end
+  @tumble_items.sort_by { |item| item[:created_at] }
   ap @tumble_items
   # Get all items from quote, irclink and render them
   @tumble_items
@@ -53,6 +61,7 @@ end
     redirect to('/')
   end
 
+  #TODO Error handling?
   post '/quote' do
     @params = params
     @quote = @params[:quote]
@@ -67,6 +76,20 @@ end
   #TODO
   delete '/quote', :agent => "special crunchy agent" do
     #.. create something ..
+  end
+
+  # Get simple link posting working
+  # TODO error handling and validation of URL
+  post '/link' do
+    @params = params
+    #TODO get title via a lookup
+    link  = Link.new(:user => @params[:user], :url => @params[:url])
+    link.save!
+    #TODO return linkid
+    #TODO allow link edits
+    #TODO tell fools when they've already posted a link
+    "Link added"
+
   end
 
   not_found do
