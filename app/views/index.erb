@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+  <title>tumblefish.</title>
+  <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen" />
+  <!-- Twitter Cards -->
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+</head>
+
+<body>
+    <div id="page">
+
+    <div id="masthead"><a href="/">tumblefish.</a></div>
+
+    <div id="sidebar">
+        <div class="item">
+            <div class="header">search it up</div>
+            <form action="/search.cgi" id="search-form" method="get">
+                <input type="text" id="search" name="search" value="" size="15" />
+            </form>
+        </div>
+        <div class="item">
+            <div class="header">last week's hot shit</div>
+
+        </div>
+        <div class="item">
+            <div class="header">also</div>
+            <div class="sm"><div class="link"><a href="/buttons/">buttons</a></div></div>
+            <div class="sm"><div class="link"><a href="/index.xml">feed</a></div></div>
+        </div>
+    </div>
+
+    <div id="content">
+      <!-- TODO this is where the tumble item templates go -->
+      <% @tumble_items.each do |ti| %>
+        <% if ti.has_attribute?('quote') %>
+            <div class="item">
+              <span class="quote"><%= ti.quote %></span>
+              <span class="author"><%= ti.author %></span>
+            </div>
+        <% end %>
+      <% end %>
+
+    </div>
+
+    <div id="footer">
+        <a href="?i=<%= @page +1 %>"><img src="/img/prev.jpg" border="0" alt="" /></a>
+        <% unless @page == 0 %>
+        &nbsp;<a href="?i=<%= @page -1 %>"><img src="/img/next.jpg" border="0" alt="" /></a>
+      <% end %>
+        
+        <br><br> Source Code Available on <a href=http://github.com/stahnma/rb-tumble>Github.</a><br>
+        Heavily Inspired by <a href=http://github.com/websages/tumble>Websages</a> originally.<br>
+    </div>
+
+    </div>
+</body>
+</html>
