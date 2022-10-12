@@ -48,9 +48,19 @@ def main_page
 #  end
 
   Link.all.each do |l|
+#    ap l
+#    ap l.payload()
     ap l
-    ap l.render()
+    ap l.get_title()
+      #.    l.title = "testing title"
+#    l.content_type = "dumb"
+    l.save
   end
+
+  Link.all.each do |d|
+    ap d
+  end
+
 end
 
 
