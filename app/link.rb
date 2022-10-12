@@ -1,7 +1,20 @@
 
 
+
+require 'mechanize'
+
 class Link < ActiveRecord::Base
+
   scope :recents, -> {where(:created_at => Time.now.beginning_of_day-6.days .. Time.now)}
+
+  def get_title
+    webpage = Mechanize.new.get(url)
+    # TODO handle errors
+    self.content_type = webpage.header['content-type']
+    self.title = webpage.title
+    save!
+    @title
+  end
 
   def self.page(num)
     start_range = Time.now.end_of_day.weeks_ago(num)
@@ -10,6 +23,8 @@ class Link < ActiveRecord::Base
   end
 
   def payload()
-     "<a href='#{self.url}'>#{self.url}</a>"
+    if self.content_type =~ /text\/html/
+      "<a href='http://giga2:4567/link/#{self.id}'>#{self.title}</a>"
+    end
   end
 end
