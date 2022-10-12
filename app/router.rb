@@ -28,14 +28,12 @@ def main_page(weeks = 0)
   Link.page(weeks).each do |l|
     @tumble_items.push l
   end
-  @tumble_items.sort_by { |item| item[:created_at] }
-  ap @tumble_items
+  ti = @tumble_items.sort_by! { |item| item[:created_at] }
+  ti.reverse!
   # Get all items from quote, irclink and render them
-  @tumble_items
+  ti
 end
 
-#class Tumble < Sinatra::Application
-#
   helpers do
     def partial (template, locals = {})
       erb(template, :layout => false, :locals => locals)
@@ -84,13 +82,23 @@ end
     @params = params
     #TODO get title via a lookup
     link  = Link.new(:user => @params[:user], :url => @params[:url])
+    link.get_title()
     link.save!
-    #TODO return linkid
+    link.save
     #TODO allow link edits
     #TODO tell fools when they've already posted a link
-    "Link added"
-
+    puts link.id
+    "http://giga2:4567/link/#{link.id}"
   end
+
+  get '/link/:id' do
+    # What if not found?
+    l = Link.find_by_id(params['id'])
+    l.clicks += 1
+    l.save
+    redirect l.url
+  end
+
 
   not_found do
     'This is nowhere to be found.'
@@ -98,9 +106,3 @@ end
 
 
   ActiveRecord::Base.connection.close
-
-#   run! if app_file == $0
-#end
-
-
-
