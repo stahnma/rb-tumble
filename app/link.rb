@@ -13,11 +13,25 @@ class Link < ActiveRecord::Base
     Link.hot.clicky.limit(5)
   end
 
+  # Default search title/urlstring
+  # Search by user with user:string
+  # Search by date maybe in the future
+  def self.search(pattern)
+    if pattern =~ /user:/
+      pattern = pattern.split(':')[1]
+      return where("user like ?", "%#{pattern}%").limit(20)
+    end
+    return where("title like ?", "%#{pattern}%").where("url like ?", "%#{pattern}%").limit(20)
+  end
+
   def get_title
     webpage = Mechanize.new.get(url)
     # TODO handle errors
     self.content_type = webpage.header['content-type']
     self.title = webpage.title
+    if self.title == '' or self.title.nil?
+      self.title=url
+    end
     save!
     @title
   end
@@ -29,8 +43,17 @@ class Link < ActiveRecord::Base
   end
 
   def payload()
-    if self.content_type =~ /text\/html/
+    if self.url =~ /twitter.com\/[a-zA-z]*\/status/
+      tweetid = self.url.split("/status/")[1]
+      %Q{
+              <blockquote class="twitter-tweet">
+                 <a href="https://twitter.com/x/status/#{tweetid}"></a>
+              </blockquote>
+              <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>}
+    elsif self.content_type =~ /text\/html/
       "<a href='http://giga2:4567/link/#{self.id}'>#{self.title}</a>"
     end
+
+
   end
 end
