@@ -1,9 +1,14 @@
 #/usr/bin/env bash
 
-#curl  -v \
-# --data-urlencode  "user=stahnma" \
-# --data-urlencode  "url=http://www.reddit.com" \
-#   http://giga2:4567/link
+curl  -v \
+ --data-urlencode  "user=stahnma" \
+ --data-urlencode  "url=http://www.reddit.com" \
+   http://giga2:4567/link
+
+curl  -v \
+ --data-urlencode  "user=stahnma" \
+ --data-urlencode  "url=http://www.section303.com" \
+   http://giga2:4567/link
 
 curl  -v \
  --data-urlencode  "user=stahnma" \
