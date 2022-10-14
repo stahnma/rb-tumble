@@ -46,6 +46,12 @@ def main_page
 #      ap q
 #    end
 #  end
+  #
+#  ap   Link.clicky.hot
+  ap Link.hot.clicky
+#  ap Link.clicky
+
+exit 1
 
   Link.all.each do |l|
 #    ap l
