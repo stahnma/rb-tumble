@@ -51,11 +51,10 @@
     </div>
 
     <div id="footer">
-        <a href="?i=<%= @page +1 %>"><img src="/img/prev.jpg" border="0" alt="" /></a>
+        <a href="/<%= @page +1 %>"><img src="/img/prev.jpg" border="0" alt="" /></a>
         <% unless @page == 0 %>
-        &nbsp;<a href="?i=<%= @page -1 %>"><img src="/img/next.jpg" border="0" alt="" /></a>
+        &nbsp;<a href="/<%= @page -1 %>"><img src="/img/next.jpg" border="0" alt="" /></a>
       <% end %>
-        
         <br><br> Source Code Available on <a href=http://github.com/stahnma/rb-tumble>Github.</a><br>
         Heavily Inspired by <a href=http://github.com/websages/tumble>Websages</a> originally.<br>
     </div>

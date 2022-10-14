@@ -13,7 +13,7 @@ ActiveRecord::Base.establish_connection(db_config)
 set :bind, '0.0.0.0'
 set :public_folder, __dir__ + '/public'
 
-def main_page(weeks = 0)
+def main_feed(weeks = 0)
   @tumble_items = []
   Quote.page(weeks).each do| q|
     @tumble_items.push q
@@ -39,14 +39,22 @@ after_reload do
 end
 
 get '/' do
-  if @params.has_key?(:i)
-    @page=@params[:i].to_i
+  @page = 0
+  @tumble_items = main_feed()
+  @hotshit = Link.hotshit()
+  erb :index
+end
+
+get '/:page' do
+  if @params.has_key?(:page)
+    @page=@params[:page].to_i
   else
     @page = 0
   end
-  @tumble_items = main_page(@page)
+  @tumble_items = main_feed(@page)
   @hotshit = Link.hotshit()
   erb :index
+
 end
 
 get '/quote' do
