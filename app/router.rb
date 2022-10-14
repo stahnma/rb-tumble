@@ -52,6 +52,7 @@ end
       @page = 0
     end
     @tumble_items = main_page(@page)
+    @hotshit = Link.hotshit()
     erb :index
   end
 

@@ -22,12 +22,12 @@
         </div>
         <div class="item">
             <div class="header">last week's hot shit</div>
+            <% @hotshit.each do |l| %>
+            <div class="sm">
+              <div class="link"><a href="/link/<%= l.id%>"><%= l.title %></a></div>
+            </div>
 
-        </div>
-        <div class="item">
-<!--            <div class="header">also</div>
-            <div class="sm"><div class="link"><a href="/buttons/">buttons</a></div></div>
-                  <div class="sm"><div class="link"><a href="/index.xml">feed</a></div></div> -->
+            <% end %>
         </div>
     </div>
 

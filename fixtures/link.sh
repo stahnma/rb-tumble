@@ -15,6 +15,21 @@ curl  -v \
  --data-urlencode  "url=https://www.infoq.com/presentations/stripe-dev-env-infrastructure/ "\
    http://giga2:4567/link
 
+curl  -v \
+ --data-urlencode  "user=stahnma" \
+ --data-urlencode  "url=http://twitter.com" \
+   http://giga2:4567/link
+
+curl  -v \
+ --data-urlencode  "user=stahnma" \
+ --data-urlencode  "url=http://example.com" \
+   http://giga2:4567/link
+
+curl  -v \
+ --data-urlencode  "user=stahnma" \
+ --data-urlencode  "url=http://countingcrows.com" \
+   http://giga2:4567/link
+
 
 # It should return the id of the link posted
 # It should find the title

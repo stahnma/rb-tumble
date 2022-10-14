@@ -9,8 +9,8 @@ class Link < ActiveRecord::Base
   scope :clicky, -> {where("clicks > 1")}
   scope :hot, -> {order(clicks: :desc)}
 
-  def hotshit
-    Link.hot.clicky
+  def self.hotshit
+    Link.hot.clicky.limit(5)
   end
 
   def get_title
