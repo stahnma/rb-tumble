@@ -6,6 +6,12 @@ require 'mechanize'
 class Link < ActiveRecord::Base
 
   scope :recents, -> {where(:created_at => Time.now.beginning_of_day-6.days .. Time.now)}
+  scope :clicky, -> {where("clicks > 1")}
+  scope :hot, -> {order(clicks: :desc)}
+
+  def hotshit
+    Link.hot.clicky
+  end
 
   def get_title
     webpage = Mechanize.new.get(url)
