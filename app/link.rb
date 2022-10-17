@@ -50,8 +50,22 @@ class Link < ActiveRecord::Base
                  <a href="https://twitter.com/x/status/#{tweetid}"></a>
               </blockquote>
               <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>}
+    elsif self.url =~ /youtube.com/ or self.url =~ /youtu.be/
+      if self.url =~ /youtu.be/
+        ytid = self.url.split('youtu.be')[-1][1..-1]
+      else
+        ytid = self.url.split('youtube.com')[-1][1..-1]
+      end
+      url = "http://youtube.com/embed/#{ytid}"
+      %Q{<object data="#{url}" width=480 height=320> </object><br />}
     elsif self.content_type =~ /text\/html/
       "<a href='http://giga2:4567/link/#{self.id}'>#{self.title}</a>"
+    # spotify
+    # amazon preview card
+    # gist
+    # github repo
+    # google maps
+    # instagram
     end
 
 
