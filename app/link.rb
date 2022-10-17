@@ -1,7 +1,9 @@
 
 
-
+require 'yaml'
 require 'mechanize'
+
+
 
 class Link < ActiveRecord::Base
 
@@ -43,6 +45,7 @@ class Link < ActiveRecord::Base
   end
 
   def payload()
+    db_config = YAML::load(File.open('config/database.yml'))
     if self.url =~ /twitter.com\/[a-zA-z]*\/status/
       tweetid = self.url.split("/status/")[1]
       %Q{
@@ -59,7 +62,7 @@ class Link < ActiveRecord::Base
       url = "http://youtube.com/embed/#{ytid}"
       %Q{<object data="#{url}" width=480 height=320> </object><br />}
     elsif self.content_type =~ /text\/html/
-      "<a href='http://giga2:4567/link/#{self.id}'>#{self.title}</a>"
+      "<a href='#{db_config['weburi']}/link/#{self.id}'>#{self.title}</a>"
     # spotify
     # amazon preview card
     # gist

@@ -3,47 +3,47 @@
 curl  -v \
  --data-urlencode  "user=stahnma" \
  --data-urlencode  "url=http://www.reddit.com" \
-   http://giga2:4567/link
+   $WEBURI/link
 
 curl  -v \
  --data-urlencode  "user=stahnma" \
  --data-urlencode  "url=http://www.section303.com" \
-   http://giga2:4567/link
+   $WEBURI/link
 
 curl  -v \
  --data-urlencode  "user=stahnma" \
  --data-urlencode  "url=https://www.infoq.com/presentations/stripe-dev-env-infrastructure/ "\
-   http://giga2:4567/link
+   $WEBURI/link
 
 curl  -v \
  --data-urlencode  "user=stahnma" \
  --data-urlencode  "url=http://twitter.com" \
-   http://giga2:4567/link
+   $WEBURI/link
 
 curl  -v \
  --data-urlencode  "user=stahnma" \
  --data-urlencode  "url=http://example.com" \
-   http://giga2:4567/link
+   $WEBURI/link
 
 curl  -v \
  --data-urlencode  "user=stahnma" \
  --data-urlencode  "url=http://countingcrows.com" \
-   http://giga2:4567/link
+   $WEBURI/link
 
 curl -v \
  --data-urlencode  "user=somebody" \
  --data-urlencode  "url=https://twitter.com/adamhjk/status/1580728510347608064" \
-   http://giga2:4567/link
+   $WEBURI/link
 
 curl -v \
  --data-urlencode  "user=video dude" \
  --data-urlencode  "url=https://youtu.be/yslCUtpe_F8" \
-   http://giga2:4567/link
+   $WEBURI/link
 
 curl -v \
  --data-urlencode  "user=video dude" \
  --data-urlencode  "url=https://www.youtube.com/watch?v=yslCUtpe_F8" \
-   http://giga2:4567/link
+   $WEBURI/link
 
 
 # It should return the id of the link posted

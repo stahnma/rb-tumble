@@ -21,6 +21,16 @@ namespace :db do
   end
 end
 
+desc "Run fixtures"
+task :fixtures do
+  # Set env var
+  config = YAML::load(File.open('config/database.yml'))
+  weburi = config['weburi']
+  sh "WEBURI=#{weburi} fixtures/quote.sh"
+  sh "WEBURI=#{weburi} fixtures/link.sh"
+end
+
+
 desc "Run dev app"
 task :app do
   sh "bundle exec ruby app/router.rb"

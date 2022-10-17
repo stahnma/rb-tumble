@@ -87,7 +87,7 @@ post '/link' do
   link.save
   #TODO allow link edits
   #TODO tell fools when they've already posted a link
-  "http://giga2:4567/link/#{link.id}"
+  "#{db_config['weburi']}/link/#{link.id}"
 end
 
 get '/link/:id' do
