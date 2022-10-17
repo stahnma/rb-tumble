@@ -35,6 +35,16 @@ curl -v \
  --data-urlencode  "url=https://twitter.com/adamhjk/status/1580728510347608064" \
    http://giga2:4567/link
 
+curl -v \
+ --data-urlencode  "user=video dude" \
+ --data-urlencode  "url=https://youtu.be/yslCUtpe_F8" \
+   http://giga2:4567/link
+
+curl -v \
+ --data-urlencode  "user=video dude" \
+ --data-urlencode  "url=https://www.youtube.com/watch?v=yslCUtpe_F8" \
+   http://giga2:4567/link
+
 
 # It should return the id of the link posted
 # It should find the title
