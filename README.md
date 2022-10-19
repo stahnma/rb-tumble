@@ -33,6 +33,7 @@ Ruby implementation of Tumble
   * Inside the container `rake db:migrate` will set up the database. It's best to mount that in.
   * Inside contianer `rake app` will run the app.
   * `rake shell` from secondary termainl windows will give more shell access to the container.
+  * `rake fixutres` will populate the db with a few items using the application API.
 
 
 # Deployment
