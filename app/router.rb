@@ -91,7 +91,12 @@ post '/link' do
   #TODO get title via a lookup
   link  = Link.new(:user => @params[:user], :url => @params[:url])
   link.channel = @params['channel'] if @params.has_key?('channel')
-  link.get_title()
+  begin
+    link.get_title()
+  rescue
+    status 400 # Bad Request
+    return "Problem validating link."
+  end
   link.save!
   link.save
   ap link
