@@ -6,6 +6,7 @@ require 'active_record'
 require_relative 'quote'
 require_relative 'link'
 require 'awesome_print'
+require 'json'
 
 db_config = YAML::load(File.open('config/database.yml'))
 ActiveRecord::Base.establish_connection(db_config)
@@ -15,7 +16,7 @@ set :public_folder, __dir__ + '/public'
 
 def main_feed(weeks = 0)
   @tumble_items = []
-  Quote.page(weeks).each do| q|
+  Quote.page(weeks).each do |q|
     @tumble_items.push q
   end
   Link.page(weeks).each do |l|
@@ -25,6 +26,10 @@ def main_feed(weeks = 0)
   ti.reverse!
   # Get all items from quote, irclink and render them
   ti
+end
+
+configure :development do
+   set :logging, Logger::DEBUG
 end
 
 helpers do
@@ -54,7 +59,6 @@ get '/:page' do
   @tumble_items = main_feed(@page)
   @hotshit = Link.hotshit()
   erb :index
-
 end
 
 get '/quote' do
@@ -79,15 +83,25 @@ end
 # Get simple link posting working
 # TODO error handling and validation of URL
 post '/link' do
+  content_type :text
+  ap request.env
+
+
   @params = params
   #TODO get title via a lookup
   link  = Link.new(:user => @params[:user], :url => @params[:url])
+  link.channel = @params['channel'] if @params.has_key?('channel')
   link.get_title()
   link.save!
   link.save
+  ap link
   #TODO allow link edits
   #TODO tell fools when they've already posted a link
   "#{db_config['weburi']}/link/#{link.id}"
+end
+
+post '/link/' do
+  redirect '/link'
 end
 
 get '/link/:id' do
@@ -98,8 +112,8 @@ get '/link/:id' do
   redirect l.url
 end
 
-not_found do
-  'This is nowhere to be found.'
-end
+#not_found do
+#  'This is nowhere to be found.'
+#end
 
 ActiveRecord::Base.connection.close
