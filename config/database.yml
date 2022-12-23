@@ -1,4 +1,4 @@
 adapter: 'sqlite3'
 database: 'db/tumble.db'
 pool: 20
-weburi: http://giga2:4567
+weburi: http://localhost:4567
