@@ -43,6 +43,7 @@ curl -v \
 curl -v \
  --data-urlencode  "user=video dude" \
  --data-urlencode  "url=https://www.youtube.com/watch?v=yslCUtpe_F8" \
+ --data-urlencode "channel=#general" \
    $WEBURI/link
 
 
