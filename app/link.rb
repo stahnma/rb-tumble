@@ -46,6 +46,7 @@ class Link < ActiveRecord::Base
 
   def payload()
     db_config = YAML::load(File.open('config/database.yml'))
+    # Tweets
     if self.url =~ /twitter.com\/[a-zA-z]*\/status/
       tweetid = self.url.split("/status/")[1]
       %Q{
@@ -53,14 +54,18 @@ class Link < ActiveRecord::Base
                  <a href="https://twitter.com/x/status/#{tweetid}"></a>
               </blockquote>
               <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>}
+    # Youtube embeds
     elsif self.url =~ /youtube.com/ or self.url =~ /youtu.be/
       if self.url =~ /youtu.be/
         ytid = self.url.split('youtu.be')[-1][1..-1]
+      elsif self.url =~ /\/shorts\//
+        ytid = self.url.split('/')[-1]
       else
-        ytid = self.url.split('youtube.com')[-1][1..-1]
+        ytid=self.url.split('v=')[-1]
       end
       url = "http://youtube.com/embed/#{ytid}"
       %Q{<object data="#{url}" width=480 height=320> </object><br />}
+    # Normal links
     elsif self.content_type =~ /text\/html/
       "<a href='#{db_config['weburi']}/link/#{self.id}'>#{self.title}</a>"
     # spotify
