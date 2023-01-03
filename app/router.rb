@@ -117,6 +117,24 @@ get '/link/:id' do
   redirect l.url
 end
 
+delete '/link/:id' do
+  @params = params
+  ap @params
+  if @params.has_key?('secret')
+    return "invalid request"  if @params['secret'].nil?
+    return "invalid secret" if @params['secret'] != db_config['secret']
+    # Do the delete magic
+    l = Link.find_by_id(params['id'])
+    msg = "Deleted link #{l.id} originally posted by #{l.user}"
+    if l.channel != 'NULL' and l.channel != "" and not l.channel.nil?
+      msg = "#{msg} in channel #{l.channel}"
+    end
+    l.destroy!
+    return "#{msg}\n\n"
+  end
+  return "Erorr processing delete.\n\n"
+end
+
 #not_found do
 #  'This is nowhere to be found.'
 #end
