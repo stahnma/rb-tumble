@@ -2,3 +2,4 @@ adapter: 'sqlite3'
 database: 'db/tumble.db'
 pool: 20
 weburi: http://localhost:4567
+secret: 'ihasone'

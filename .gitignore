@@ -1,7 +1,7 @@
 Gemfile.lock
 db/tumble.db
 
-
+config/database.yml
 *.gem
 *.rbc
 /.config
