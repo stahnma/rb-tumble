@@ -121,10 +121,16 @@ delete '/link/:id' do
   @params = params
   ap @params
   if @params.has_key?('secret')
-    return "invalid request"  if @params['secret'].nil?
-    return "invalid secret" if @params['secret'] != db_config['secret']
+    if @params['secret'].nil? or @params['secret'] != db_config['secret']
+      status 403
+      return "invalid request"
+    end
     # Do the delete magic
-    l = Link.find_by_id(params['id'])
+      l = Link.find_by_id(params['id'])
+    if l.nil?
+      status 404 # Bad Request
+      return "Erorr processing delete. Link not found.\n\n"
+    end
     msg = "Deleted link #{l.id} originally posted by #{l.user}"
     if l.channel != 'NULL' and l.channel != "" and not l.channel.nil?
       msg = "#{msg} in channel #{l.channel}"
@@ -132,7 +138,6 @@ delete '/link/:id' do
     l.destroy!
     return "#{msg}\n\n"
   end
-  return "Erorr processing delete.\n\n"
 end
 
 #not_found do
