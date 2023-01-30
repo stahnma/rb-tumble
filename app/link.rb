@@ -30,9 +30,14 @@ class Link < ActiveRecord::Base
     webpage = Mechanize.new.get(url)
     # TODO handle errors
     self.content_type = webpage.header['content-type']
-    self.title = webpage.title
-    if self.title == '' or self.title.nil?
-      self.title=url
+    if self.content_type =~ /image/
+      save!
+      return false
+    else
+      self.title = webpage.title
+      if self.title == '' or self.title.nil?
+        self.title=url
+      end
     end
     save!
     @title
@@ -46,6 +51,10 @@ class Link < ActiveRecord::Base
 
   def payload()
     db_config = YAML::load(File.open('config/database.yml'))
+    # Need to figure out if it's an image first, I think
+    if self.content_type =~ /image/
+      return "<a href='#{db_config['weburi']}/link/#{self.id}'><img src='#{self.url}'></a>"
+    end
     # Tweets
     if self.url =~ /twitter.com\/[a-zA-z]*\/status/
       tweetid = self.url.split("/status/")[1]
