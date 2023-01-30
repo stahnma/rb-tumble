@@ -22,4 +22,7 @@ curl -v -X DELETE \
 	$link
 
 # Delete an invalid link
+curl -v -X DELETE \
+	--data-urlencode "secret=ihasone" \
+	$WEBURI/link/121
 # Delete a link posted long ago?
