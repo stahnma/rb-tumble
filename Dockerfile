@@ -7,3 +7,4 @@ RUN /usr/local/bin/bundle config set --local path 'vendor/bundle'
 COPY .bashrc /root/.bashrc
 CMD [ "/bin/bash" ]
 EXPOSE 4567
+ENTRYPOINT rake app
