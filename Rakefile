@@ -36,6 +36,6 @@ end
 
 
 desc "Run dev app"
-task :app do
+task :app => 'db:migrate' do
   sh "bundle exec ruby app/router.rb"
 end
