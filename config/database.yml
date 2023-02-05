@@ -1,9 +1,9 @@
 adapter: 'mysql2'
 encoding: 'utf8'
-username: <%= ENV['NF_MYSQL_USERNAME'] %>
-password: <%= ENV['NF_MYSQL_PASSWORD'] %>
-database: <%= ENV['NF_MYSQL_DATABASE'] %>
-host: <%= ENV['NF_MYSQL_HOST'] %>
+username: <%= ENV['NF_TUMBLEDB_USERNAME'] %>
+password: <%= ENV['NF_TUMBLEDB_PASSWORD'] %>
+database: <%= ENV['NF_TUMBLEDB_DATABASE'] %>
+host: <%= ENV['NF_TUMBLEDB_HOST'] %>
 
 pool: 20
   #weburi: http://localhost:4567
