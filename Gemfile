@@ -8,6 +8,7 @@ gem "activerecord"
 gem "sqlite3"
 gem "rake"
 gem "mechanize"
+gem "mysql2"
 
 
 # Development

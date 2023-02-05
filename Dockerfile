@@ -1,10 +1,10 @@
 
-
 from ruby
 RUN apt-get update && apt-get -y install vim git sqlite3 ack-grep && rm -rf /var/lib/apt/lists/*
-WORKDIR "/app"
+WORKDIR "/tumble"
 RUN /usr/local/bin/bundle config set --local path 'vendor/bundle'
 COPY .bashrc /root/.bashrc
-CMD [ "/bin/bash" ]
 EXPOSE 4567
-ENTRYPOINT rake app
+COPY  . /tumble
+RUN bundle
+CMD [ "rake", "app" ]

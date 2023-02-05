@@ -1,0 +1,11 @@
+adapter: 'mysql2'
+encoding: 'utf8'
+username: ENV['NF_MYSQL_USERNAME']
+password: ENV['NF_MYSQL_PASSWORD']
+database: ENV['NF_MYSQL_DATABASE']
+host: ENV['NF_MYSQL_HOST']
+
+pool: 20
+  #weburi: http://localhost:4567
+weburi: http://site--rb-tumble--yggqcfg658tn.code.run:4567
+secret: 'ihasone'
