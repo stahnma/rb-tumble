@@ -7,5 +7,5 @@ host: <%= ENV['NF_TUMBLEDB_HOST'] %>
 
 pool: 20
   #weburi: http://localhost:4567
-weburi: http://site--rb-tumble--yggqcfg658tn.code.run:4567
+weburi: https://site--rb-tumble--yggqcfg658tn.code.run:4567
 secret: 'ihasone'
