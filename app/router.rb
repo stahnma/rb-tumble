@@ -7,8 +7,10 @@ require_relative 'quote'
 require_relative 'link'
 require 'awesome_print'
 require 'json'
+require 'active_support'
 
-db_config = YAML::load(File.open('config/database.yml'))
+#db_config = YAML::load(File.open('config/database.yml'))
+db_config = ActiveSupport::ConfigurationFile.parse('config/database.yml')
 ActiveRecord::Base.establish_connection(db_config)
 
 set :bind, '0.0.0.0'

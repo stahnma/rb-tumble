@@ -2,6 +2,7 @@
 
 require 'yaml'
 require 'mechanize'
+require 'active_support'
 
 
 
@@ -50,7 +51,8 @@ class Link < ActiveRecord::Base
   end
 
   def payload()
-    db_config = YAML::load(File.open('config/database.yml'))
+#    db_config = YAML::load(File.open('config/database.yml'))
+    db_config = ActiveSupport::ConfigurationFile.parse('config/database.yml')
     # Need to figure out if it's an image first, I think
     if self.content_type =~ /image/
       return "<a href='#{db_config['weburi']}/link/#{self.id}'><img src='#{self.url}'></a>"
