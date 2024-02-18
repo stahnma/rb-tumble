@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: RB-Tumble API
+  version: 1.0.0
+  description: API for managing quotes and links in the RB-Tumble application.
+servers:
+  - url: http://localhost:4567
+paths:
+  /:
+    get:
+      summary: Get the main feed
+      responses:
+        '200':
+          description: Main feed retrieved successfully
+  /{page}:
+    get:
+      summary: Get the main feed by page
+      parameters:
+        - name: page
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Page number
+      responses:
+        '200':
+          description: Page retrieved successfully
+  /quote:
+    post:
+      summary: Add a new quote
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                quote:
+                  type: string
+                author:
+                  type: string
+      responses:
+        '200':
+          description: Quote added successfully
+  /link:
+    post:
+      summary: Add a new link
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                url:
+                  type: string
+                channel:
+                  type: string
+      responses:
+        '200':
+          description: Link added successfully
+  /link/{id}:
+    get:
+      summary: Redirect to a link by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Link ID
+      responses:
+        '302':
+          description: Redirected to the link URL
+    delete:
+      summary: Delete a link by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Link ID
+      responses:
+        '200':
+          description: Link deleted successfully
+
